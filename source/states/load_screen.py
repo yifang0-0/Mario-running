@@ -1,4 +1,3 @@
-__author__ = 'marble_xu'
 
 from .. import setup, tool
 from .. import constants as c
@@ -46,6 +45,17 @@ class GameOver(LoadScreen):
 
     def set_info_state(self):
         return c.GAME_OVER
+
+class ifExit(LoadScreen):
+    def __init__(self):
+        LoadScreen.__init__(self)
+
+    def set_next_state(self):
+        return c.GAME_OVER
+    #一旦选择退出就结束游戏
+
+    def set_info_state(self):
+        return c.IFEXIT
 
 class TimeOut(LoadScreen):
     def __init__(self):

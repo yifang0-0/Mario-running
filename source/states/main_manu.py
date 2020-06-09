@@ -84,10 +84,10 @@ class Menu(tool.State):
         if self.cursor.state == c.PLAYER1:
             self.cursor.rect.y = 358
             if keys[pg.K_DOWN]:
-                self.cursor.state = c.PLAYER2
+                self.cursor.state = c.SHOP
                 self.player_index = 1
-                self.game_info[c.PLAYER_NAME] = c.PLAYER_LUIGI
-        elif self.cursor.state == c.PLAYER2:
+                self.game_info[c.PLAYER_NAME] = c.PLAYER_MARIO
+        elif self.cursor.state == c.SHOP:
             self.cursor.rect.y = 403
             if keys[pg.K_UP]:
                 self.cursor.state = c.PLAYER1

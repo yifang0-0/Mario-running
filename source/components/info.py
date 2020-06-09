@@ -15,7 +15,7 @@ class Info():
     def __init__(self, game_info, state):
 
         # self.coin_total = game_info[c.COIN_TOTAL]
-        # self.total_lives = game_info[c.LIVES]
+        self.total_lives = game_info[c.LIVES]
         self.state = state
         # self.game_info = game_info
         #
@@ -76,6 +76,8 @@ class Info():
         elif self.state == c.LOAD_SCREEN:
             self.create_player_image()
             self.create_load_screen_labels()
+        elif self.state == c.SHOP:
+            self.create_shop_labels()
         elif self.state == c.LEVEL:
             self.create_level_labels()
         elif self.state == c.GAME_OVER:
@@ -98,9 +100,37 @@ class Info():
                                 *rect, (92, 148, 252), 2.9)
         self.player_rect = self.player_image.get_rect(center=(320, 290))
 
+    def create_shop_labels(self):
+        property1 = []
+        #luigi_game = []
+        property2 = []
+        property3 = []
+        property4 = []
+        levelentrance = []
+        levelnumber = []
+        backtomainmenu = []
+        self.create_label(property1, c.PROPERTY1, 130,130,)
+        self.create_label(property2, c.PROPERTY2,  230,130)
+        self.create_label(property3, c.PROPERTY3,  330,130)
+        self.create_label(property4, c.PROPERTY4,  430,130)
+        self.create_label(levelentrance, c.LEVEL, 230, 230)
+        self.create_label(levelnumber, '1', 430, 230)
+        self.create_label(backtomainmenu, c.BACKTOMENU, 460, 405)
+        #self.create_label(luigi_game, c.PLAYER2, 272, 405)
+        self.state_labels = [
+            property1 ,
+            property2 ,
+            property3 ,
+            property4 ,
+            levelentrance,
+            levelnumber ,
+            backtomainmenu ,
+            *self.info_labels
+        ]
+
     def create_main_menu_labels(self):
         mario_game = []
-        luigi_game = []
+        #luigi_game = []
         shop = []
         top = []
         top_score = []

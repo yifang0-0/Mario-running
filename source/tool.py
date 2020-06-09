@@ -119,6 +119,12 @@ class Control():
                 self.keys = pg.key.get_pressed()
             elif event.type == pg.KEYUP:
                 self.keys = pg.key.get_pressed()
+            elif event.type == pg.KEYLEFT:
+                self.keys = pg.key.get_pressed()
+            elif event.type == pg.KEYRIGHT:
+                self.keys = pg.key.get_pressed()
+            elif event.type == pg.KEYESCAPE:
+                self.keys = pg.key.get_pressed()
 
     def main(self):
         while not self.done:

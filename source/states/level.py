@@ -67,7 +67,7 @@ class Level(tool.State):
             self.end_x = self.bg_rect.w
             self.player_x = 110
             self.player_y = c.GROUND_HEIGHT
-
+#在这里改变代码 因为需要做到每一关都可以买
     def change_map(self, index, type):
         self.start_x, self.end_x, self.player_x, self.player_y = self.map_list[index]
         self.viewport.x = self.start_x

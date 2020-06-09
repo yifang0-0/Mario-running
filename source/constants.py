@@ -19,6 +19,7 @@ GRAY         = (100, 100, 100)
 NAVYBLUE     = ( 60,  60, 100)
 WHITE        = (255, 255, 255)
 RED          = (255,   0,   0)
+PINK         = (255, 192, 203)
 GREEN        = (  0, 255,   0)
 FOREST_GREEN = ( 31, 162,  35)
 BLUE         = (  0,   0, 255)
@@ -48,7 +49,19 @@ SHOP = 'GO SHOPPING'
 LOAD_SCREEN = 'load screen'
 TIME_OUT = 'time out'
 GAME_OVER = 'game over'
+WANNA_EXIT = 'WANNA EXIT '
+NOT_EXIT = 'I WANT TO STAY '
 LEVEL = 'level'
+
+#SHOP STUFF
+PROPERTY1 = 'UNKOWN1'
+PROPERTY2 = 'UNKOWN2'
+PROPERTY3 = 'UNKOWN3'
+PROPERTY4 = 'UNKOWN4'
+PROPERTY5 = 'UNKOWN5'
+BACKTOMENU= 'main menu'
+WELCOME = 'WELCOME TO THE BEST SHOP'
+
 
 #MAIN MENU CURSOR STATES
 PLAYER1 = '1 PLAYER GAME'

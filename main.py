@@ -12,8 +12,9 @@ if __name__=='__main__':
                   c.LOAD_SCREEN: load_screen.LoadScreen(),
                   c.LEVEL: level.Level(),
                   c.GAME_OVER: load_screen.GameOver(),
+                  c.WANNA_EXIT: load_screen.ifExit(),
                   c.TIME_OUT: load_screen.TimeOut()}
-    game.setup_states(state_dict, c.MAIN_MENU)
+    game.setup_states(state_dict, c.MAIN_MENU) #不停把statedict丢进来
     game.main()
     pg.quit()
 
