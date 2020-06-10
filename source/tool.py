@@ -119,19 +119,20 @@ class Control():
                 self.keys = pg.key.get_pressed()
             elif event.type == pg.KEYUP:
                 self.keys = pg.key.get_pressed()
-            elif event.type == pg.KEYLEFT:
-                self.keys = pg.key.get_pressed()
-            elif event.type == pg.KEYRIGHT:
-                self.keys = pg.key.get_pressed()
-            elif event.type == pg.KEYESCAPE:
-                self.keys = pg.key.get_pressed()
+            # elif event.type == pg.KEYLEFT:
+            #     self.keys = pg.key.get_pressed()
+            # elif event.type == pg.KEYRIGHT:
+            #     self.keys = pg.key.get_pressed()
+            # elif event.type == pg.KEYESCAPE:
+            #     self.keys = pg.key.get_pressed()
+                #hhhhh闹笑话了呀 这里检测的是键盘的动作而不是具体按了哪个键
 
     def main(self):
         while not self.done:
-            self.event_loop()
-            self.update()
-            pg.display.update()
-            self.clock.tick(self.fps)
+            self.event_loop() #获取键盘动作
+            self.update() #按照子类的方法具体实现更新
+            pg.display.update() #pg.display.update()实现了更新的真正实施
+            self.clock.tick(self.fps) #self.clock.tick(double n)表示了每秒循环n次 用来调整while循环的速度 此处ftp设置为60，每秒刷新屏幕60次
 
 def get_image(sheet, x, y, width, height, colorkey, scale):
         image = pg.Surface([width, height])

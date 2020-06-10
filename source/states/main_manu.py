@@ -22,7 +22,7 @@ class Menu(tool.State):
         self.startup(0.0, persist)
 
     def startup(self, current_time, persist):
-        self.next = c.LOAD_SCREEN
+        self.next = c.LOAD_SCREEN #设置下一个状态
         self.persist = persist
         self.game_info = persist
         self.overhead_info = info.Info(self.game_info, c.MAIN_MENU)
@@ -45,6 +45,7 @@ class Menu(tool.State):
         rect = image.get_rect()
         rect.x, rect.y = (170, 100)
         self.image_dict['GAME_NAME_BOX'] = (image, rect)
+
 
     def setup_player(self):
         self.player_list = []
