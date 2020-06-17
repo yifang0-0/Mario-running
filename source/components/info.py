@@ -14,15 +14,15 @@ class Character(pg.sprite.Sprite):
 class Info():
     def __init__(self, game_info, state):
 
-        # self.coin_total = game_info[c.COIN_TOTAL]
+        self.coin_total = game_info[c.COIN_TOTAL]
         self.total_lives = game_info[c.LIVES]
         self.state = state
-        # self.game_info = game_info
+        self.game_info = game_info
         #
         self.create_font_image_dict()
         self.create_info_labels()
         self.create_state_labels()
-        # self.flashing_coin = coin.FlashCoin(280, 53)
+        self.flashing_coin = coin.FlashCoin(280, 53)
 
     def create_font_image_dict(self):
         self.image_dict = {}
