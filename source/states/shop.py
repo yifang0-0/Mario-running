@@ -120,6 +120,9 @@ class Shop(tool.State):
         surface.blit(self.cursor.image, self.cursor.rect)
         #self.overhead_info.draw(surface)
         self.overhead_info.draw(surface)
+    '''
+    注意啦！这里由于之需要检测键盘按下来的一次动作，当键盘动作与之前没有改变的时候，cursor的值是不需要切换的，因此需要设置一个记录ifUsed,记录当前的键盘信息已经被使用过了，每一次按键状态变更的时候ifUsed置1，每一次进入update首先观察指标是否为1，若不为1，需要
+    '''
     def update_cursor(self, keys):
         if self.cursor.state == c.LIFE:
             self.cursor.rect.x=170
@@ -130,6 +133,7 @@ class Shop(tool.State):
                 self.cursor.rect.x = 80
                 self.cursor.rect.y = 405
             elif keys[pg.K_DOWN]:
+                keys[pg.K_DOWN]=0
                 self.cursor.state = c.PLAYER_MARIO
                 self.cursor.rect.x = 235
                 self.cursor.rect.y = 315
@@ -150,6 +154,7 @@ class Shop(tool.State):
                 self.cursor.rect.x = 80
                 self.cursor.rect.y = 405
             elif keys[pg.K_DOWN]:
+                keys[pg.K_DOWN]=0
                 self.cursor.state = c.PLAYER_MARIO
                 self.cursor.rect.x = 235
                 self.cursor.rect.y = 315
@@ -170,6 +175,7 @@ class Shop(tool.State):
                 self.cursor.rect.x = 80
                 self.cursor.rect.y = 405
             elif keys[pg.K_DOWN]:
+                keys[pg.K_DOWN]=0
                 self.cursor.state = c.PLAYER_MARIO
                 self.cursor.rect.x = 235
                 self.cursor.rect.y = 315
@@ -186,6 +192,7 @@ class Shop(tool.State):
             self.cursor.rect.x = 452
             self.cursor.rect.y = 215
             if keys[pg.K_UP]:
+                keys[pg.K_UP]=0
                 self.cursor.state = c.UNLOCK
                 self.cursor.rect.x = 80
                 self.cursor.rect.y = 405
