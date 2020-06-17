@@ -11,7 +11,8 @@ keybinding = {
     'jump':pg.K_a,
     'left':pg.K_LEFT,
     'right':pg.K_RIGHT,
-    'down':pg.K_DOWN
+    'down':pg.K_DOWN,
+    'esc':pg.K_ESCAPE
 }
 # class Game:
 #     def __init__(self):

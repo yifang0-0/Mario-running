@@ -15,7 +15,7 @@ class LoadScreen(tool.State):
         self.next = self.set_next_state()
 
         info_state = self.set_info_state()
-        self.overhead_info = info.Info(self.game_info, info_state)
+        self.overhead_info = info.Info(self.game_info, info_state,self.persist)
 
     def set_next_state(self):
         return c.LEVEL

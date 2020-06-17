@@ -12,17 +12,18 @@ class Character(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 class Info():
-    def __init__(self, game_info, state):
+    def __init__(self, game_info, state,persist):
 
-        # self.coin_total = game_info[c.COIN_TOTAL]
+        self.coin_total = game_info[c.COIN_TOTAL]
         self.total_lives = game_info[c.LIVES]
         self.state = state
-        # self.game_info = game_info
+        self.persist=persist
+        self.game_info = game_info
         #
         self.create_font_image_dict()
         self.create_info_labels()
         self.create_state_labels()
-        # self.flashing_coin = coin.FlashCoin(280, 53)
+        self.flashing_coin = coin.FlashCoin(280, 53)
 
     def create_font_image_dict(self):
         self.image_dict = {}
@@ -109,13 +110,23 @@ class Info():
         levelentrance = []
         levelnumber = []
         backtomainmenu = []
-        self.create_label(property1, c.PROPERTY1, 130,130,)
-        self.create_label(property2, c.PROPERTY2,  230,130)
-        self.create_label(property3, c.PROPERTY3,  330,130)
-        self.create_label(property4, c.PROPERTY4,  430,130)
-        self.create_label(levelentrance, c.LEVEL, 230, 230)
-        self.create_label(levelnumber, '1', 430, 230)
-        self.create_label(backtomainmenu, c.BACKTOMENU, 460, 405)
+        self.create_label(property1, c.LIFE,179, 100+10)
+        self.create_label(property2, c.FASTER,170+60+42, 100+125)
+        self.create_label(property3, c.POWERUP,170+111+84, 100+10)
+        self.create_label(property4, c.WEAPON,170+162+130,100+125)
+        self.create_label(levelentrance, c.UNLOCK, 95, 405)
+        #设置可以解锁的关卡起点
+        if self.persist[c.MAX_LEVEL]==1:
+            self.create_label(levelnumber, '2', 430, 405)
+        if self.persist[c.MAX_LEVEL]==2:
+            self.create_label(levelnumber, '3', 430, 405)
+        if self.persist[c.MAX_LEVEL]==3:
+            self.create_label(levelnumber, '4', 430, 405)
+        if self.persist[c.MAX_LEVEL]==4:
+            self.create_label(levelnumber, '4', 430, 405)
+
+        #self.create_label(levelnumber, '1', 430, 405)
+        self.create_label(backtomainmenu, c.BACKTOMENU, 515, 405)
         #self.create_label(luigi_game, c.PLAYER2, 272, 405)
         self.state_labels = [
             property1 ,
@@ -136,7 +147,7 @@ class Info():
         top_score = []
 
         self.create_label(mario_game, c.PLAYER1, 272, 360)
-        self.create_label(shop, c.SHOP, 265, 405)
+        self.create_label(shop, c.SHOP, 270, 405)
         #self.create_label(luigi_game, c.PLAYER2, 272, 405)
         self.create_label(top, 'TOP - ', 290, 465)
         self.create_label(top_score, '000000', 400, 465)
@@ -214,10 +225,10 @@ class Info():
             text[index] = Character(self.image_dict[digit])
             text[index].rect = rect
             index -= 1
-    def testdraw(self, surface):
-        self.create_main_menu_labels()
-        self.draw_info(surface, self.state_labels)
-        #surface.blit(self.player_image, self.player_rect)
+    # def testdraw(self, surface):
+    #     self.create_main_menu_labels()
+    #     self.draw_info(surface, self.state_labels)
+    #     #surface.blit(self.player_image, self.player_rect)
 
     def draw(self, surface):
         self.draw_info(surface, self.state_labels)

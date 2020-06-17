@@ -18,21 +18,32 @@ class Menu(tool.State):
                    c.TOP_SCORE: 0,
                    c.CURRENT_TIME: 0.0,
                    c.LEVEL_NUM: 1,
-                   c.PLAYER_NAME: c.PLAYER_MARIO}
+                   c.PLAYER_NAME: c.PLAYER_MARIO,
+                   c.MAX_LEVEL:1,
+                   c.SUCCESSED:0
+                   }#这里是初始化的persist,但是之后每一次应该从数据库中读取
         self.startup(0.0, persist)
 
     def startup(self, current_time, persist):
         self.next = c.LOAD_SCREEN #设置下一个状态
         self.persist = persist
         self.game_info = persist
-        self.overhead_info = info.Info(self.game_info, c.MAIN_MENU)
+        self.overhead_info = info.Info(self.game_info, c.MAIN_MENU,self.persist)
 
         self.setup_background()
         self.setup_player()
         self.setup_cursor()
 
     def setup_background(self):
-        self.background = setup.GFX['level_1']
+        if self.persist[c.LEVEL_NUM]==1:
+            self.background = setup.GFX['level_1']
+        if self.persist[c.LEVEL_NUM]==2:
+            self.background = setup.GFX['level_2']
+        if self.persist[c.LEVEL_NUM]==3:
+            self.background = setup.GFX['level_3']
+        if self.persist[c.LEVEL_NUM]==4:
+            self.background = setup.GFX['level_4']
+
         self.background_rect = self.background.get_rect()
         self.background = pg.transform.scale(self.background,
                                     (int(self.background_rect.width*c.BACKGROUND_MULTIPLER),
@@ -79,18 +90,19 @@ class Menu(tool.State):
                      self.image_dict['GAME_NAME_BOX'][1])
         surface.blit(self.player_image, self.player_rect)
         surface.blit(self.cursor.image, self.cursor.rect)
-        #self.overhead_info.draw(surface)
-        self.overhead_info.testdraw(surface)
+        self.overhead_info.draw(surface)
     def update_cursor(self, keys):
         if self.cursor.state == c.PLAYER1:
             self.cursor.rect.y = 358
             if keys[pg.K_DOWN]:
                 self.cursor.state = c.SHOP
-                self.player_index = 1
+                self.next = c.SHOP
+                self.player_index = 0
                 self.game_info[c.PLAYER_NAME] = c.PLAYER_MARIO
         elif self.cursor.state == c.SHOP:
             self.cursor.rect.y = 403
             if keys[pg.K_UP]:
+                self.next = c.LOAD_SCREEN
                 self.cursor.state = c.PLAYER1
                 self.player_index = 0
                 self.game_info[c.PLAYER_NAME] = c.PLAYER_MARIO
@@ -98,11 +110,18 @@ class Menu(tool.State):
             self.reset_game_info()
             self.done = True
 
+    '''
+            if keys[pg.K_ENTER]:
+                #self.reset_game_info()
+                self.done = True
+    File "F:\大三下课程\软件工程\Mario-running\Mario-running\source\states\main_manu.py", line 99, in update_cursor
+        if keys[pg.K_ENTER]:
+    AttributeError: module 'pygame' has no attribute 'K_ENTER'
+    '''
     def reset_game_info(self):
         self.game_info[c.COIN_TOTAL] = 0
         self.game_info[c.SCORE] = 0
         self.game_info[c.LIVES] = 3
         self.game_info[c.CURRENT_TIME] = 0.0
         self.game_info[c.LEVEL_NUM] = 1
-
         self.persist = self.game_info
