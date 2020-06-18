@@ -20,7 +20,8 @@ class Menu(tool.State):
                    c.LEVEL_NUM: 1,
                    c.PLAYER_NAME: c.PLAYER_MARIO,
                    c.MAX_LEVEL:1,
-                   c.SUCCESSED:0
+                   c.SUCCESSED:0,
+                   c.STARTUP:1
                    }#这里是初始化的persist,但是之后每一次应该从数据库中读取
         self.startup(0.0, persist)
 
@@ -29,10 +30,15 @@ class Menu(tool.State):
         self.persist = persist
         self.game_info = persist
         self.overhead_info = info.Info(self.game_info, c.MAIN_MENU,self.persist)
-
+        self.canUse=0
+        self.lastKeyEvent=pg.key.get_pressed()
         self.setup_background()
-        self.setup_player()
         self.setup_cursor()
+        if self.persist[c.STARTUP]==0:
+            self.reset_game_info()
+        else:
+            self.initial_game_info()
+            self.setup_player()
 
     def setup_background(self):
         if self.persist[c.LEVEL_NUM]==1:
@@ -82,7 +88,12 @@ class Menu(tool.State):
         self.game_info[c.CURRENT_TIME] = self.current_time
         self.player_image = self.player_list[self.player_index][0]
         self.player_rect = self.player_list[self.player_index][1]
-        self.update_cursor(keys)
+        temp=pg.key.get_pressed()
+        if self.lastKeyEvent!=temp:
+            self.lastKeyEvent=temp
+            self.canUse=1
+        if self.canUse:
+            self.update_cursor(keys)
         self.overhead_info.update(self.game_info)
 
         surface.blit(self.background, self.viewport, self.viewport)
@@ -99,6 +110,7 @@ class Menu(tool.State):
                 self.next = c.SHOP
                 self.player_index = 0
                 self.game_info[c.PLAYER_NAME] = c.PLAYER_MARIO
+                self.canUse=0
         elif self.cursor.state == c.SHOP:
             self.cursor.rect.y = 403
             if keys[pg.K_UP]:
@@ -106,6 +118,7 @@ class Menu(tool.State):
                 self.cursor.state = c.PLAYER1
                 self.player_index = 0
                 self.game_info[c.PLAYER_NAME] = c.PLAYER_MARIO
+                self.canUse=0
         if keys[pg.K_RETURN]:
             self.reset_game_info()
             self.done = True
@@ -119,6 +132,10 @@ class Menu(tool.State):
     AttributeError: module 'pygame' has no attribute 'K_ENTER'
     '''
     def reset_game_info(self):
+        self.game_info[c.LIVES] = 3
+        self.game_info[c.CURRENT_TIME] = 0.0
+        self.persist = self.game_info
+    def initial_game_info(self):
         self.game_info[c.COIN_TOTAL] = 0
         self.game_info[c.SCORE] = 0
         self.game_info[c.LIVES] = 3

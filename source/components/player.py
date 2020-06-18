@@ -359,15 +359,15 @@ class Player(pg.sprite.Sprite):
         else:
             animation_speed = 130 - (self.x_vel * 13 * -1)
         return animation_speed
-'''
-    def shoot_fireball(self, powerup_group):
-        if (self.current_time - self.last_fireball_time) > 500:
-            self.allow_fireball = False
-            powerup_group.add(powerup.FireBall(self.rect.right, 
-                            self.rect.y, self.facing_right))
-            self.last_fireball_time = self.current_time
-            self.frame_index = 6
-'''
+    '''
+        def shoot_fireball(self, powerup_group):
+            if (self.current_time - self.last_fireball_time) > 500:
+                self.allow_fireball = False
+                powerup_group.add(powerup.FireBall(self.rect.right,
+                                self.rect.y, self.facing_right))
+                self.last_fireball_time = self.current_time
+                self.frame_index = 6
+    '''
     def flag_pole_sliding(self):
         self.state = c.FLAGPOLE
         self.x_vel = 0

@@ -116,16 +116,16 @@ class Info():
         self.create_label(property4, c.WEAPON,170+162+130,100+125)
         self.create_label(levelentrance, c.UNLOCK, 95, 405)
         #设置可以解锁的关卡起点
-        if self.persist[c.MAX_LEVEL]==1:
-            self.create_label(levelnumber, '2', 430, 405)
-        if self.persist[c.MAX_LEVEL]==2:
-            self.create_label(levelnumber, '3', 430, 405)
-        if self.persist[c.MAX_LEVEL]==3:
-            self.create_label(levelnumber, '4', 430, 405)
-        if self.persist[c.MAX_LEVEL]==4:
-            self.create_label(levelnumber, '4', 430, 405)
+        if self.persist[c.LEVEL_NUM]==1:
+            self.create_label(levelnumber, '1', 390, 405)
+        if self.persist[c.LEVEL_NUM]==2:
+            self.create_label(levelnumber, '2', 390, 405)
+        if self.persist[c.LEVEL_NUM]==3:
+            self.create_label(levelnumber, '3', 390, 405)
+        if self.persist[c.LEVEL_NUM]==4:
+            self.create_label(levelnumber, '4', 390, 405)
 
-        #self.create_label(levelnumber, '1', 430, 405)
+        #self.create_label(levelnumber, '1', 400, 405)
         self.create_label(backtomainmenu, c.BACKTOMENU, 515, 405)
         #self.create_label(luigi_game, c.PLAYER2, 272, 405)
         self.state_labels = [
@@ -200,7 +200,7 @@ class Info():
 
     def update(self, level_info, level=None):
         self.level = level
-#        self.handle_level_state(level_info)
+        self.handle_level_state(level_info)
 
     def handle_level_state(self, level_info):
         self.score = level_info[c.SCORE]

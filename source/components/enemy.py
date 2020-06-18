@@ -486,7 +486,7 @@ class FireStick(pg.sprite.Sprite):
 
     def load_frames(self, sheet, frame_rect_list):
         for frame_rect in frame_rect_list:
-            self.frames.append(tool.get_image(sheet, *frame_rect, 
+            self.frames.append(tool.get_image(sheet, *frame_rect,
                             c.BLACK, c.BRICK_SIZE_MULTIPLIER))
 
     def update(self, game_info, level):

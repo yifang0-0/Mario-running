@@ -5,7 +5,7 @@ import pygame as pg
 from .. import setup, tool
 from .. import constants as c
 from ..components import info
-#from ..components import stuff, player, brick, box, enemy, powerup, coin
+from ..components import stuff, player, brick, box, enemy, powerup, coin
 
 
 class Level(tool.State):
@@ -19,23 +19,23 @@ class Level(tool.State):
         self.game_info[c.CURRENT_TIME] = current_time
         self.death_timer = 0
         self.castle_timer = 0
-        #
-        # self.moving_score_list = []
-        # self.overhead_info = info.Info(self.game_info, c.LEVEL)
-        # self.load_map()
-        # self.setup_background()
-        # self.setup_maps()
-        # self.ground_group = self.setup_collide(c.MAP_GROUND)
-        # self.step_group = self.setup_collide(c.MAP_STEP)
-        # self.setup_pipe()
-        # self.setup_slider()
-        # self.setup_static_coin()
-        # self.setup_brick_and_box()
-        # self.setup_player()
-        # self.setup_enemies()
-        # self.setup_checkpoints()
-        # self.setup_flagpole()
-        # self.setup_sprite_groups()
+
+        self.moving_score_list = []
+        self.overhead_info = info.Info(self.game_info, c.LEVEL,self.persist)
+        self.load_map()
+        self.setup_background()
+        self.setup_maps()
+        self.ground_group = self.setup_collide(c.MAP_GROUND)
+        self.step_group = self.setup_collide(c.MAP_STEP)
+        self.setup_pipe()
+        self.setup_slider()
+        self.setup_static_coin()
+        self.setup_brick_and_box()
+        self.setup_player()
+        self.setup_enemies()
+        self.setup_checkpoints()
+        self.setup_flagpole()
+        self.setup_sprite_groups()
 
     def load_map(self):
         map_file = 'level_' + str(self.game_info[c.LEVEL_NUM]) + '.json'
