@@ -1,7 +1,8 @@
 import pygame
 
 from ..import setup,tool
-
+from ..components import mydatabase as db
+from ..components import dataBaseGlobalData as GD
 
 import pygame as pg
 from .. import tool
@@ -12,9 +13,9 @@ from .. components import info
 class Menu(tool.State):
     def __init__(self):
         tool.State.__init__(self)
-        persist = {c.COIN_TOTAL: 0,
+        persist = {c.COIN_TOTAL: GD.shopinfo[c.COINID],
                    c.SCORE: 0,
-                   c.LIVES: 3,
+                   c.LIVES: GD.shopinfo[c.LIFEID],
                    c.TOP_SCORE: 0,
                    c.CURRENT_TIME: 0.0,
                    c.LEVEL_NUM: 1,
@@ -132,13 +133,13 @@ class Menu(tool.State):
     AttributeError: module 'pygame' has no attribute 'K_ENTER'
     '''
     def reset_game_info(self):
-        self.game_info[c.LIVES] = 3
+        self.game_info[c.LIVES] = GD.shopinfo[c.LIFEID]
         self.game_info[c.CURRENT_TIME] = 0.0
         self.persist = self.game_info
     def initial_game_info(self):
-        self.game_info[c.COIN_TOTAL] = 0
+        self.game_info[c.COIN_TOTAL] = GD.shopinfo[c.COINID]
         self.game_info[c.SCORE] = 0
-        self.game_info[c.LIVES] = 3
+        self.game_info[c.LIVES] = GD.shopinfo[c.LIFEID]
         self.game_info[c.CURRENT_TIME] = 0.0
         self.game_info[c.LEVEL_NUM] = 1
         self.persist = self.game_info

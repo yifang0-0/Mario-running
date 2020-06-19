@@ -3,10 +3,13 @@ import pygame
 from source import tool ,setup
 from source.states import main_manu,load_screen, level ,shop
 from source import constants as c
+from source.components import loginWindow as lw
 
 import pygame as pg
 
 if __name__=='__main__':
+    loginwindow = lw.LoginWindow()
+    print('start here')
     game = tool.Control()
     state_dict = {c.MAIN_MENU: main_manu.Menu(),
                   c.LOAD_SCREEN: load_screen.LoadScreen(),

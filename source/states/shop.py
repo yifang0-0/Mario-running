@@ -2,6 +2,8 @@ import pygame as pg
 from .. import setup, tool
 from .. import constants as c
 from ..components import info
+from ..components import mydatabase as db
+from ..components import dataBaseGlobalData as GD
 '''
 #商店的内容
 #除了在components.info中的背景设置(包括金币，游戏各类数据)，还需要表层的商品设计(读取图片+标题)
@@ -19,6 +21,9 @@ class Shop(tool.State):
         self.setup_cursor()#设置游标
         self.setup_background()
         self.setup_goods()
+
+        self.ID = GD.shopinfo[0]
+        db.setup_shop(self.ID)
 
 
     def setup_goods(self):
@@ -144,7 +149,6 @@ class Shop(tool.State):
                 self.cursor.rect.y = 405
                 self.canUse=0
             elif keys[pg.K_DOWN]:
-
                 self.cursor.state = c.PLAYER_MARIO
                 self.cursor.rect.x = 235
                 self.cursor.rect.y = 315
@@ -159,6 +163,11 @@ class Shop(tool.State):
                 self.cursor.rect.x = 262
                 self.cursor.rect.y = 215
                 self.canUse=0
+            elif keys[pg.K_b]:
+                print("buylife")
+                db.buyThings(c.LIFEPRICE, c.LIFEID, self.ID)
+                print(GD.shopinfo)
+                self.canUse = 0
 
         elif self.cursor.state == c.FASTER:
             self.cursor.rect.x = 262
@@ -183,6 +192,11 @@ class Shop(tool.State):
                 self.cursor.state = c.POWERUP
                 self.cursor.rect.x = 355
                 self.cursor.rect.y = 110
+            elif keys[pg.K_b]:
+                print("buyspeed")
+                db.buyThings(c.SPEEDPRICE, c.SPEEDID, self.ID)
+                print(GD.shopinfo)
+                self.canUse = 0
 
         elif self.cursor.state == c.POWERUP:
             self.cursor.rect.x = 355
@@ -208,6 +222,11 @@ class Shop(tool.State):
                 self.cursor.state = c.WEAPON
                 self.cursor.rect.x = 452
                 self.cursor.rect.y = 215
+            elif keys[pg.K_b]:
+                print("buyjump")
+                db.buyThings(c.JUMPPRICE, c.JUMPID, self.ID)
+                print(GD.shopinfo)
+                self.canUse = 0
 
         elif self.cursor.state == c.WEAPON:
             self.cursor.rect.x = 452

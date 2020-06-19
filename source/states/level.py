@@ -6,7 +6,8 @@ from .. import setup, tool
 from .. import constants as c
 from ..components import info
 from ..components import stuff, player, brick, box, enemy, powerup, coin
-
+from ..components import dataBaseGlobalData as GD
+from ..components import mydatabase as db
 
 class Level(tool.State):
     def __init__(self):
@@ -382,6 +383,7 @@ class Level(tool.State):
                 shell.state = c.SHELL_SLIDE
         elif coin:
             self.update_score(100, coin, 1)
+            print(GD.shopinfo[1])
             coin.kill()
 
     def adjust_player_for_x_collisions(self, collider):
@@ -549,6 +551,7 @@ class Level(tool.State):
                 self.player.state = c.DOWN_TO_PIPE
         self.player.rect.y -= 1
 
+    #在这儿提交金币更新，彻底死亡或者每关结束后更新
     def update_game_info(self):
         if self.player.dead:
             self.persist[c.LIVES] -= 1
@@ -558,8 +561,11 @@ class Level(tool.State):
         elif self.overhead_info.time == 0:
             self.next = c.TIME_OUT
         elif self.player.dead:
+            db.update_coin(GD.shopinfo[1])
             self.next = c.LOAD_SCREEN
         else:
+            # 每关结束后
+            db.update_coin(GD.shopinfo[1])
             self.game_info[c.LEVEL_NUM] += 1
             self.next = c.LOAD_SCREEN
 
@@ -578,9 +584,12 @@ class Level(tool.State):
         group.remove(sprite)
         self.dying_group.add(sprite)
 
+    #在这里增加金币数
     def update_score(self, score, sprite, coin_num=0):
         self.game_info[c.SCORE] += score
         self.game_info[c.COIN_TOTAL] += coin_num
+        GD.shopinfo[1] += coin_num
+        print(GD.shopinfo)
         x = sprite.rect.x
         y = sprite.rect.y - 10
         self.moving_score_list.append(stuff.Score(x, y, score))

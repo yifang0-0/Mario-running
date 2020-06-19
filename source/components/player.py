@@ -6,6 +6,8 @@ import pygame as pg
 from .. import setup, tool
 from .. import constants as c
 #from ..components import powerup
+from . import mydatabase as db
+from . import dataBaseGlobalData as GD
 
 class Player(pg.sprite.Sprite):
     def __init__(self, player_name):
@@ -31,6 +33,7 @@ class Player(pg.sprite.Sprite):
     def restart(self):
         '''restart after player is dead or go to next level'''
         if self.dead:
+            # 在数据库更新金币数
             self.dead = False
             self.big = False
             self.fire = False
@@ -38,6 +41,7 @@ class Player(pg.sprite.Sprite):
             self.right_frames = self.small_normal_frames[0]
             self.left_frames = self.small_normal_frames[1]
         self.state = c.STAND
+
 
     def load_data(self):
         player_file = str(self.player_name) + '.json'
@@ -67,15 +71,18 @@ class Player(pg.sprite.Sprite):
 
     def setup_speed(self):
         speed = self.player_data[c.PLAYER_SPEED]
+        speedStrength = GD.shopinfo[c.SPEEDID]
+        jumpStrength = GD.shopinfo[c.JUMPID]
+        print(speed)
         self.x_vel = 0
         self.y_vel = 0
         
-        self.max_walk_vel = speed[c.MAX_WALK_SPEED]
-        self.max_run_vel = speed[c.MAX_RUN_SPEED]
-        self.max_y_vel = speed[c.MAX_Y_VEL]
-        self.walk_accel = speed[c.WALK_ACCEL]
-        self.run_accel = speed[c.RUN_ACCEL]
-        self.jump_vel = speed[c.JUMP_VEL]
+        self.max_walk_vel = speed[c.MAX_WALK_SPEED] + speedStrength
+        self.max_run_vel = speed[c.MAX_RUN_SPEED] + speedStrength
+        self.max_y_vel = speed[c.MAX_Y_VEL] + jumpStrength
+        self.walk_accel = speed[c.WALK_ACCEL] + speedStrength/40
+        self.run_accel = speed[c.RUN_ACCEL]+ speedStrength/40
+        self.jump_vel = speed[c.JUMP_VEL]- jumpStrength
         
         self.gravity = c.GRAVITY
         self.max_x_vel = self.max_walk_vel
