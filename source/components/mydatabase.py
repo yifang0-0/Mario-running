@@ -1,6 +1,9 @@
 import pymysql
 from . import dataBaseGlobalData as GD
 from .. import constants as c
+from tkinter import *
+from tkinter import messagebox
+
 db = pymysql.connect('localhost','zhouyan','123456Qaz','mario')
 
 def login(username, password):
@@ -64,33 +67,43 @@ def getUserShopinfo(id):
     result = cursor.fetchall()
     return result[0]
 
-def setup_shop(id):
+#根据数据库信息更新本地信息
+def updateShopInfo(id):
     sql_getshopinfo = """SELECT * FROM shopinfo WHERE ID = %s"""
     cursor = db.cursor()
     cursor.execute(sql_getshopinfo, id)
     result = cursor.fetchall()
     GD.shopinfo = list(result[0])
 
-def buyThings(price, goodid, id):
+def buyThings(price, goodid):
     coins = GD.shopinfo[c.COINID]
     lifes = GD.shopinfo[c.LIFEID]
     speed = GD.shopinfo[c.SPEEDID]
     jump = GD.shopinfo[c.JUMPID]
     if coins < price:
-        print("not enough")
+        Tk().wm_withdraw()
+        messagebox.showerror('错误', '好好工作，努力赚钱')
+        return False
     else:
         coins -= price
         update_coin(coins)
         if goodid == c.LIFEID:
             lifes += 1
             update_life(lifes)
+            Tk().wm_withdraw()
+            messagebox.showinfo('提示', '一股暖流入肚，你仿佛获得了新生！')
         if goodid == c.SPEEDID:
             speed += 1
             update_speed(speed)
+            Tk().wm_withdraw()
+            messagebox.showinfo('提示', '你感受到了风的流动，它在推动着你前行！')
         if goodid == c.JUMPID:
             jump += 1
             update_jump(jump)
-        setup_shop(id)
+            Tk().wm_withdraw()
+            messagebox.showinfo('提示', '你觉得双腿充满了力量，重力无法束缚住你了！')
+        updateShopInfo(GD.userid)
+        return True
 
 def update_coin(newcoins):
     sql_updateCoin = """UPDATE shopinfo SET COINS = %s WHERE ID = %s"""

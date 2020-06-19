@@ -27,6 +27,7 @@ class Menu(tool.State):
         self.startup(0.0, persist)
 
     def startup(self, current_time, persist):
+        db.updateShopInfo(GD.userid)
         self.next = c.LOAD_SCREEN #设置下一个状态
         self.persist = persist
         self.game_info = persist

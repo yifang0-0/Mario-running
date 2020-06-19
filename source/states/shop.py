@@ -21,9 +21,7 @@ class Shop(tool.State):
         self.setup_cursor()#设置游标
         self.setup_background()
         self.setup_goods()
-
-        self.ID = GD.shopinfo[0]
-        db.setup_shop(self.ID)
+        db.updateShopInfo(GD.userid)
 
 
     def setup_goods(self):
@@ -104,6 +102,7 @@ class Shop(tool.State):
         self.cursor.state = c.LIFE
 
     def update(self, surface, keys, current_time):
+
         self.current_time = current_time
         self.game_info[c.CURRENT_TIME] = self.current_time
         temp=pg.key.get_pressed()
@@ -165,7 +164,8 @@ class Shop(tool.State):
                 self.canUse=0
             elif keys[pg.K_b]:
                 print("buylife")
-                db.buyThings(c.LIFEPRICE, c.LIFEID, self.ID)
+                if db.buyThings(c.LIFEPRICE, c.LIFEID):
+                    self.game_info[c.COIN_TOTAL] -= c.LIFEPRICE
                 print(GD.shopinfo)
                 self.canUse = 0
 
@@ -194,7 +194,8 @@ class Shop(tool.State):
                 self.cursor.rect.y = 110
             elif keys[pg.K_b]:
                 print("buyspeed")
-                db.buyThings(c.SPEEDPRICE, c.SPEEDID, self.ID)
+                if db.buyThings(c.SPEEDPRICE, c.SPEEDID):
+                    self.game_info[c.COIN_TOTAL] -= c.SPEEDPRICE
                 print(GD.shopinfo)
                 self.canUse = 0
 
@@ -207,7 +208,6 @@ class Shop(tool.State):
                 self.cursor.rect.x = 80
                 self.cursor.rect.y = 405
             elif keys[pg.K_DOWN]:
-                keys[pg.K_DOWN]=0
                 self.canUse=0
                 self.cursor.state = c.PLAYER_MARIO
                 self.cursor.rect.x = 235
@@ -224,7 +224,8 @@ class Shop(tool.State):
                 self.cursor.rect.y = 215
             elif keys[pg.K_b]:
                 print("buyjump")
-                db.buyThings(c.JUMPPRICE, c.JUMPID, self.ID)
+                if db.buyThings(c.JUMPPRICE, c.JUMPID):
+                    self.game_info[c.COIN_TOTAL] -= c.LIFEPRICE
                 print(GD.shopinfo)
                 self.canUse = 0
 

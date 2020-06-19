@@ -26,7 +26,7 @@ class LoginWindow():
                                                                                 pady=5)
         Button(self.loginwindow, text='注册', command=self.register, width=8, height=2).grid(row=4, column=2, sticky=W, padx=5,
                                                                                  pady=5)
-        Button(self.loginwindow, text='退出', command=self.loginwindow.quit(), width=8, height=2).grid(row=4, column=3)
+        Button(self.loginwindow, text='退出', command=self.quit, width=8, height=2).grid(row=4, column=3)
         self.loginwindow.resizable(width=False, height=True)
         self.loginwindow.mainloop()
 
@@ -43,7 +43,7 @@ class LoginWindow():
                 tkinter.messagebox.showerror('错误','密码错误!')
             if info == 'loginsuccess':
                 tkinter.messagebox.showinfo('成功', '恭喜你成功登录!')
-                self.loginwindow.quit()
+                self.quit()
 
     def wantToRegister(self,username, password):
         result = tkinter.messagebox.askokcancel(title='是否注册', message='您尚未注册，是否要注册？')
@@ -62,7 +62,7 @@ class LoginWindow():
                 tkinter.messagebox.showerror('错误','已经存在该用户!')
             if info == 'registersuccess':
                 tkinter.messagebox.showinfo('成功', '恭喜你成功注册!')
-                self.loginwindow.quit()
+                self.quit()
 
     def lengthControl(self, username, password):
         if len(username) < 6:
@@ -78,3 +78,7 @@ class LoginWindow():
             tkinter.messagebox.showwarning('警告', '密码过长，请输入6-15个字符')
             return False
         return True
+
+    def quit(self):
+        self.loginwindow.withdraw()
+        self.loginwindow.quit()
