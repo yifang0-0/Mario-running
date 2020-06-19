@@ -561,11 +561,11 @@ class Level(tool.State):
         elif self.overhead_info.time == 0:
             self.next = c.TIME_OUT
         elif self.player.dead:
-            db.update_coin(GD.shopinfo[1])
+            db.update_coin(GD.shopinfo[c.COINID])
             self.next = c.LOAD_SCREEN
         else:
             # 每关结束后
-            db.update_coin(GD.shopinfo[1])
+            db.update_coin(GD.shopinfo[c.COINID])
             self.game_info[c.LEVEL_NUM] += 1
             self.next = c.LOAD_SCREEN
 
