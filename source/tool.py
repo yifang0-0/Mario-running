@@ -102,7 +102,7 @@ class Control():
 
     def update(self):
         self.current_time = pg.time.get_ticks()
-        if self.state.done:
+        if self.state.done:#当前状态结束迁移到下一个状态
             self.flip_state()
         self.state.update(self.screen, self.keys, self.current_time)
 

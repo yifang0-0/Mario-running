@@ -299,6 +299,8 @@ class Shop(tool.State):
                 self.canUse=0
                 #此处需要连接数据库判断金币是否足够
                 #设计买官的价格（比如关卡数*50）
+                if self.persist[c.LEVEL_NUM]==self.persist[c.MAX_LEVEL]
+                    #弹出对话框
                 if self.persist[c.MAX_LEVEL]==4:
                     self.persist[c.MAX_LEVEL]=4
                 else:
@@ -308,6 +310,7 @@ class Shop(tool.State):
                     self.persist[c.LEVEL_NUM]=1
                 else:
                     self.persist[c.LEVEL_NUM] += 1
+
                     #self.persist[c.COIN_TOTAL]-=(self.persist[c.MAX_LEVEL]*50)
                 #self.persist[c.LEVEL_NUM]=self.persist[c.MAX_LEVEL]
 
@@ -331,6 +334,8 @@ class Shop(tool.State):
                 self.cursor.rect.y = 399
             elif keys[pg.K_RETURN]:
                 self.canUse=0
+                if self.persist[c.LEVEL_NUM]>self.persist[c.MAX_LEVEL]:
+                    self.persist[c.LEVEL_NUM]=self.persist[c.MAX_LEVEL]
                 #此处需要连接数据库判断金币是否足够
                 #设计买官的价格（比如关卡数*50）
                 self.next=c.MAIN_MENU

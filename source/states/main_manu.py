@@ -12,6 +12,7 @@ from .. components import info
 class Menu(tool.State):
     def __init__(self):
         tool.State.__init__(self)
+        #persist是记录整个状态的基本列表
         persist = {c.COIN_TOTAL: 0,
                    c.SCORE: 0,
                    c.LIVES: 3,
